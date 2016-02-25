@@ -1,0 +1,19 @@
+# Simple nginx-proxy service that requires 0 configuration here.
+# Credit goes to someone else for this, but I don't know who.
+# https://gist.github.com/frankhildebrandt/ed3be27abf1a44035567
+
+[Unit]
+Description=Autoconfigured Nginx-Reverse-Proxy
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStartPre=/usr/bin/docker pull jwilder/nginx-proxy
+ExecStart=/usr/bin/docker run -p 80:80 -p 443:443 -v /home/proxy:/etc/nginx/certs  -v /var/run/docker.sock:/tmp/docker.sock --name %p jwilder/nginx-proxy
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
