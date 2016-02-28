@@ -1,0 +1,18 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/docker-compose stop docker-redmine
+ExecStartPre=-/usr/bin/docker-compose rm docker-redmine
+ExecStart=/usr/bin/docker-compose \
+    -f /home/core/docker-redmine/docker-compose.yml \
+    -f /home/core/szeremi-nginx/projects/szeremi-redmine/docker-compose.yml \
+    up
+ExecStop=/usr/bin/docker stop docker-redmine
+
+[Install]
+WantedBy=multi-user.target

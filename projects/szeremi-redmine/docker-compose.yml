@@ -1,0 +1,8 @@
+# This file extends the docker-redmine project0's docker-compose.yml file.
+redmine:
+  extends:
+    file: /home/core/docker-redmine/docker-compose.yml
+    service: redmine
+  environment:
+    # The host under which this webserver should be accessed (thanks to nginx-proxy).
+    - VIRTUAL_HOST=redmine.szeremi.org
