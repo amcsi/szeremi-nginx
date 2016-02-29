@@ -2,7 +2,7 @@
 
 Nginx image project for *.szeremi.org
 
-Also contains other unit files for Docker that don't warrant their own Git projects.
+Also contains the unit files for Docker used on the server.
 
 ### nginx-proxy
 
