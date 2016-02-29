@@ -1,0 +1,19 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# Provide the virtual host for nginx-proxy
+ExecStart=/usr/bin/docker run --rm --name %p \
+    -e VIRTUAL_HOST=blog.szeremi.org \
+    --link mysql \
+    drupal:8.0
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target

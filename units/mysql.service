@@ -1,0 +1,19 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+# The mysql password should be found in /etc/environment
+EnvironmentFile=/etc/environment
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p \
+    -v /var/lib/mysql:/var/lib/mysql \
+    mysql:5.7
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
