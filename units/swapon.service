@@ -3,13 +3,10 @@ Description=Turn on swap
 
 [Service]
 Type=oneshot
-Environment="SWAPFILE=/1GiB.swap"
-RemainAfterExit=true
-ExecStartPre=-/usr/bin/touch ${SWAPFILE}
-ExecStartPre=/usr/sbin/losetup -f ${SWAPFILE}
-ExecStart=/usr/bin/sh -c "/sbin/swapon $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
-ExecStop=/usr/bin/sh -c "/sbin/swapoff $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
-ExecStopPost=/usr/bin/sh -c "/usr/sbin/losetup -d $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
+Environment=SWAPFILE=/swapfile-1GB
+ExecStartPre=-/usr/bin/dd if=/dev/zero of=${SWAPFILE} bs=1024 count=1048576
+ExecStartPre=-/sbin/mkswap ${SWAPFILE}
+ExecStart=/sbin/swapon ${SWAPFILE}
 
 [Install]
 WantedBy=local.target
