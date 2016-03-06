@@ -7,4 +7,4 @@ docker run --rm --name szeremi-blog-install \
     -e VIRTUAL_HOST=blog.szeremi.org \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
     --link mysql \
-    drupal:8.1
+    drupal:8.0
