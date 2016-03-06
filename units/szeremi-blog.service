@@ -14,7 +14,7 @@ ExecStart=/usr/bin/docker run --rm --name %p \
     -v /mnt/szeremi-blog/sites/default:/var/www/html/sites/default \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
     --link mysql \
-    drupal:8.0
+    drupal:8.1
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
