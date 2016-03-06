@@ -3,7 +3,7 @@ Description=Run %p. If Drupal is not yet installed, call bin/blog-install.sh, th
 Requires=docker.service
 Wants=szeremi-nginx.service
 After=docker.service
-ConditionPathExists=/mnt/szeremi-blog/sites/default/settings.php
+ConditionPathExists=/mnt/szeremi-blog/sites
 
 [Service]
 Restart=always
@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
 ExecStart=/usr/bin/docker run --rm --name %p \
     -e VIRTUAL_HOST=blog.szeremi.org \
-    -v /mnt/szeremi-blog/sites/default/settings.php:/var/www/html/sites/default/settings.php \
+    -v /mnt/szeremi-blog/sites:/var/www/html/sites \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
     --link mysql \
     drupal:8.0
