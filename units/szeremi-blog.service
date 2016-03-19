@@ -1,6 +1,6 @@
 [Unit]
 Description=Run %p. If Drupal is not yet installed, call bin/blog-install.sh, then bin/blog-install-after.sh once the installation is complete.
-Requires=docker.service
+Requires=docker.service,mysql.service
 Wants=szeremi-nginx.service
 After=docker.service
 ConditionPathExists=/mnt/szeremi-blog/sites
