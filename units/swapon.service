@@ -9,4 +9,4 @@ ExecStartPre=-/sbin/mkswap ${SWAPFILE}
 ExecStart=/sbin/swapon ${SWAPFILE}
 
 [Install]
-WantedBy=local.target
+WantedBy=swap.target
