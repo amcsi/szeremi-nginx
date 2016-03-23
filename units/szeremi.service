@@ -5,6 +5,8 @@ Wants=szeremi-nginx.service
 After=docker.service
 
 [Service]
+# Should contain SZEREMI_GA_TRACKING_ID
+EnvironmentFile=/etc/environment
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
