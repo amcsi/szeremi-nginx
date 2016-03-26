@@ -1,0 +1,16 @@
+[Unit]
+Description=Run %p (For automatically restarting Docker containers on change)
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --rm --name %p \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  centurylink/watchtower
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
