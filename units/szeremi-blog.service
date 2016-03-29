@@ -6,7 +6,9 @@ After=docker.service
 ConditionPathExists=/mnt/szeremi-blog/sites
 
 [Service]
+Environment=CONTAINER_NAME=drupal
 Restart=always
+ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
@@ -15,7 +17,7 @@ ExecStart=/usr/bin/docker run --rm --name %p \
     -v /mnt/szeremi-blog/sites:/var/www/html/sites \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
     --link mysql \
-    drupal:8.0
+    ${CONTAINER_NAME}:8.0
 ExecStop=/usr/bin/docker stop %p
 
 [Install]

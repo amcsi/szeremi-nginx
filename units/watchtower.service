@@ -4,12 +4,14 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+Environment=CONTAINER_NAME=centurylink/watchtower
 Restart=always
+ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --rm --name %p \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  centurylink/watchtower
+  ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
 
 [Install]

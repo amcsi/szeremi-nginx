@@ -7,12 +7,14 @@ After=docker.service
 [Service]
 # The mysql password should be found in /etc/environment
 EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=mysql
 Restart=always
+ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --rm --name %p \
     -v /var/lib/mysql:/var/lib/mysql \
-    mysql:5.7
+    ${CONTAINER_NAME}:5.7
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
