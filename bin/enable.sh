@@ -30,4 +30,11 @@ if [ ! -f "$serviceFile" ]; then
     exit 1;
 fi
 
-sudo systemctl enable $(realpath "$serviceFile")
+# Enable all unit related files; not just .service files, but e.g. .timer files too.
+serviceFileWithoutExtension=$(echo "$serviceFile" | sed -E 's/\.service$//')
+unitFiles=$(find $serviceFileWithoutExtension.*)
+
+for unitFile in $unitFiles
+do
+    sudo systemctl enable $(realpath "$unitFile")
+done
