@@ -5,3 +5,6 @@ Description=Daily cleanup e.g. saving space
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/docker rmi $(docker images -f "dangling=true" -q)
+
+[Install]
+WantedBy=multi-user.target

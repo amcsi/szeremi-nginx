@@ -4,3 +4,6 @@ Description=Run date.service daily
 
 [Timer]
 OnCalendar=daily
+
+[Install]
+WantedBy=multi-user.target
