@@ -1,0 +1,6 @@
+# https://www.freedesktop.org/software/systemd/man/systemd.time.html
+[Unit]
+Description=Run date.service daily
+
+[Timer]
+OnCalendar=daily
