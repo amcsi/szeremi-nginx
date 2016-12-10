@@ -7,6 +7,8 @@ After=docker.service
 [Service]
 EnvironmentFile=/etc/environment
 Environment=CONTAINER_NAME=amcsi/teamap
+Environment=SSL_KEY=/src/certs/ssl.key
+Environment=SSL_CERT=/src/certs/ssl.crt
 Restart=always
 ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
@@ -16,6 +18,10 @@ ExecStart=/usr/bin/docker run --rm --name %p \
   -p 10087:1337 \
   -e VIRTUAL_HOST=teamap.szeremi.org \
   -e GOOGLE_MAPS_API_KEY=${TEAMAP_GOOGLE_MAPS_API_KEY} \
+  -e HTTPS_SSL_KEY_FILE=${SSL_KEY} \
+  -e HTTPS_SSL_CERT_FILE=${SSL_CERT} \
+  -v /certs/teamap.szeremi.org.key:${SSL_KEY} \
+  -v /certs/teamap.szeremi.org.crt:${SSL_CERT} \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
 
