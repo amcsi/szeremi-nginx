@@ -20,6 +20,8 @@ ExecStart=/usr/bin/docker run --rm --name %p \
   -e GOOGLE_MAPS_API_KEY=${TEAMAP_GOOGLE_MAPS_API_KEY} \
   -e HTTPS_SSL_KEY_FILE=${SSL_KEY} \
   -e HTTPS_SSL_CERT_FILE=${SSL_CERT} \
+  -e "LETSENCRYPT_HOST=teamap.szeremi.org" \
+  -e "LETSENCRYPT_EMAIL=attila@szeremi.org" \
   -v /certs/teamap.szeremi.org.key:${SSL_KEY} \
   -v /certs/teamap.szeremi.org.crt:${SSL_CERT} \
   ${CONTAINER_NAME}
