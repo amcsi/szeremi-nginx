@@ -15,7 +15,8 @@ ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
 ExecStart=/usr/bin/docker run --rm  --name %p \
     -p 80:80 -p 443:443 \
-    -v /home/proxy:/etc/nginx/certs  -v /var/run/docker.sock:/tmp/docker.sock \
+    -v /certs:/etc/nginx/certs
+    -v /var/run/docker.sock:/tmp/docker.sock \
     ${CONTAINER_NAME}
 Restart=always
 
