@@ -10,7 +10,6 @@ Environment=CONTAINER_NAME=amcsi/teamap
 Environment=SSL_KEY=/src/certs/ssl.key
 Environment=SSL_CERT=/src/certs/ssl.crt
 Restart=always
-ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy

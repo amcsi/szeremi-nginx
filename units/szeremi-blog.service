@@ -8,7 +8,6 @@ ConditionPathExists=/mnt/szeremi-blog/sites
 [Service]
 Environment=CONTAINER_NAME=drupal
 Restart=always
-ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy

@@ -10,7 +10,6 @@ Requires=docker.service
 [Service]
 Environment=CONTAINER_NAME=jwilder/nginx-proxy
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker pull ${CONTAINER_NAME}
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
 ExecStart=/usr/bin/docker run --rm  --name %p \
