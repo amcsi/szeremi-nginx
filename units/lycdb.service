@@ -13,9 +13,9 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
 ExecStart=/usr/bin/docker run --rm --name %p \
   -p 10089:80 \
-  -e VIRTUAL_HOST=lycdb.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
+  -e VIRTUAL_HOST=lycdb.localtest.me,lycdb.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
   -e GA_TRACKING_ID=${LYCDB_GA_TRACKING_ID} \
-  -e MYSQL_HOST=mysql
+  -e MYSQL_HOST=mysql \
   -e MYSQL_PASS=${LYCDB_MYSQL_PASS} \
   --network szeremi \
   ${CONTAINER_NAME}
