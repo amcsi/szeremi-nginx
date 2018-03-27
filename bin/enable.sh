@@ -4,7 +4,7 @@
 listAvailableServices() {
     echo "Available services:"
     cd units
-    find . -name "*.service" | sed -E 's/\.\/([^.]*)\.service/* \1/g'
+    find . -name "*.service" | sort | sed -E 's/\.\/([^.]*)\.service/* \1/g'
     cd - > /dev/null
 }
 
