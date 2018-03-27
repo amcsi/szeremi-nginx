@@ -37,4 +37,7 @@ unitFiles=$(find $serviceFileWithoutExtension.*)
 for unitFile in $unitFiles
 do
     sudo systemctl enable $(realpath "$unitFile")
+    # Try to start it too.
+    # Currently this only works if the service name without extension was passed as an argument to this command.
+    sudo systemctl enable $1
 done
