@@ -37,6 +37,7 @@ unitFiles=$(find $serviceFileWithoutExtension.*)
 for unitFile in $unitFiles
 do
     # Currently this only works if the service name without extension was passed as an argument to this command.
+    sudo systemctl stop $1
     sudo systemctl disable $1
 
     sudo systemctl enable $(realpath "$unitFile")
