@@ -15,7 +15,7 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStartPre=-/usr/bin/docker network create szeremi
 
 ExecStart=/usr/bin/docker run --rm --name %p \
-    -v /var/lib/mysql:/var/lib/mysql \
+    -v ${MYSQL_DATA_PATH}:/var/lib/mysql \
     -v ${MYSQL_CONFIG_FILE}:/etc/mysql/conf.d/mysql.cnf \
     -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
     --network szeremi \
