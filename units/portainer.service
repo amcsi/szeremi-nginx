@@ -1,0 +1,26 @@
+# Portainer Docker manager
+
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=portainer/portainer
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# Login user data
+ExecStartPre=-/usr/bin/docker volume create portainer_data
+
+ExecStart=/usr/bin/docker run --rm --name %p \
+   -p 9000:9000 \
+   -v /var/run/docker.sock:/var/run/docker.sock \
+   -v portainer_data:/data \
+  ${CONTAINER_NAME}
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
