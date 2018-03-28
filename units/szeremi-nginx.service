@@ -9,7 +9,6 @@ Requires=docker.service
 
 [Service]
 Environment=CONTAINER_NAME=jwilder/nginx-proxy
-TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
 ExecStartPre=/usr/bin/docker create --rm  --name %p \
@@ -20,8 +19,9 @@ ExecStartPre=/usr/bin/docker create --rm  --name %p \
     -v /var/run/docker.sock:/tmp/docker.sock \
     ${CONTAINER_NAME}
 ExecStartPre=/usr/bin/docker network connect szeremi %p
-ExecStart=/usr/bin/docker start %p
+ExecStart=/usr/bin/docker start --attach %p
 Restart=always
+ExecStop=/usr/bin/docker stop %p
 
 [Install]
 WantedBy=multi-user.target
