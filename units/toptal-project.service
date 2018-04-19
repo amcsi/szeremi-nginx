@@ -14,7 +14,7 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --rm --name %p \
   -p 10091:80 \
   -v ${TOPTAL_PROJECT_DIR}:/var/www \
-  -e VIRTUAL_HOST=toptal-project.localtest.me,toptal-project.szeremi.org,toptal-project-staging.szeremi.org \
+  -e VIRTUAL_HOST=toptal-project.localtest.me,toptal-project.szeremi.org,jogging.szeremi.org \
   -e DB_DATABASE=/var/www/database/database.sqlite \
   -e LOG_CHANNEL=errorlog \
   ${CONTAINER_NAME}
