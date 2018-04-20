@@ -12,7 +12,7 @@ Environment=CONTAINER_NAME=jrcs/letsencrypt-nginx-proxy-companion
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
-ExecStart=/usr/bin/docker run --rm  --name %p \
+ExecStart=/usr/bin/docker run --name %p \
     -v /certs:/etc/nginx/certs:rw \
     --volumes-from szeremi-nginx \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \

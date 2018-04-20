@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10082:8080 \
   -e VIRTUAL_HOST=www.szeremi.org \
   -e SZEREMI_GA_TRACKING_ID=${SZEREMI_GA_TRACKING_ID} \

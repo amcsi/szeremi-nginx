@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10088:8080 \
   -e VIRTUAL_HOST=phpunit-failures.szeremi.org \
   ${CONTAINER_NAME}

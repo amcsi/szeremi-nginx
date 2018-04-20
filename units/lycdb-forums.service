@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10090:80 \
   -e VIRTUAL_HOST=lycdb-forums.localtest.me,lycdb-forums.szeremi.org,forums.lycee-tcg.eu \
   -e MYSQL_HOST=mysql \

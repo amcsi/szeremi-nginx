@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10089:80 \
   -v ${LYCDB_IMAGE_PATH}:/var/www/data/generated_images \
   -e VIRTUAL_HOST=lycdb.localtest.me,lycdb.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \

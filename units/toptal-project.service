@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10091:80 \
   -v ${TOPTAL_PROJECT_DIR}/database/database.sqlite:/var/www/database/database.sqlite \
   -v ${TOPTAL_PROJECT_DIR}/storage:/var/www/storage \

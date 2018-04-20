@@ -13,7 +13,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
   -p 10087:1337 \
   -e VIRTUAL_HOST=teamap.szeremi.org \
   -e GOOGLE_MAPS_API_KEY=${TEAMAP_GOOGLE_MAPS_API_KEY} \

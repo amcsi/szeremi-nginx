@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --rm --name %p \
+ExecStart=/usr/bin/docker run --name %p \
     -e VIRTUAL_HOST=blog.szeremi.org \
     -v /mnt/szeremi-blog/sites:/var/www/html/sites \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
