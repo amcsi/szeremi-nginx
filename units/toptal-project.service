@@ -6,14 +6,16 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=toptal-project
+Environment=CONTAINER_NAME=amcsi/jogging
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
 ExecStart=/usr/bin/docker run --rm --name %p \
   -p 10091:80 \
-  -v ${TOPTAL_PROJECT_DIR}:/var/www \
+  -v ${TOPTAL_PROJECT_DIR}/database/database.sqlite:/var/www/database/database.sqlite \
+  -v ${TOPTAL_PROJECT_DIR}/storage:/var/www/storage \
+  -e APP_KEY=${TOPTAL_PROJECT_APP_KEY} \
   -e VIRTUAL_HOST=toptal-project.localtest.me,toptal-project.szeremi.org,jogging.szeremi.org \
   -e DB_DATABASE=/var/www/database/database.sqlite \
   -e LOG_CHANNEL=errorlog \
