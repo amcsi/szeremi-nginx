@@ -1,0 +1,22 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+Environment=CONTAINER_NAME=phpmyadmin/phpmyadmin
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# The network for being able to see this service.
+ExecStartPre=-/usr/bin/docker network create szeremi
+
+ExecStart=/usr/bin/docker run --name %p \
+    -p 127.0.0.1:9999:80 \
+    -e PMA_HOST=mysql \
+    --network szeremi \
+    ${CONTAINER_NAME}
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
