@@ -1,0 +1,22 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=nginx
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# Provide the virtual host for nginx-proxy
+ExecStart=/usr/bin/docker run --name %p \
+  -p 10093:80 \
+  -e VIRTUAL_HOST=static.szeremi.org,static.localtest.me \
+  -v /var/www/static:/usr/share/nginx/html \
+  ${CONTAINER_NAME}
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
