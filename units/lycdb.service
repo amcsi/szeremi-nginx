@@ -15,7 +15,7 @@ ExecStart=/usr/bin/docker run --name %p \
   -p 10089:80 \
   -v ${LYCDB_IMAGE_PATH}:/var/www/data/generated_images \
   -e VIRTUAL_HOST=lycdb.localtest.me,lycdb.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
-  -e LETSENCRYPT_HOST=lycdb.localtest.me,lycdb.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
+  -e LETSENCRYPT_HOST=lycdb.szeremi.org \
   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   -e GA_TRACKING_ID=${LYCDB_GA_TRACKING_ID} \
   -e MYSQL_HOST=mysql \
