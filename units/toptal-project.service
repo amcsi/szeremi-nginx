@@ -17,6 +17,8 @@ ExecStart=/usr/bin/docker run --name %p \
   -v ${TOPTAL_PROJECT_DIR}/storage:/var/www/storage \
   -e APP_KEY=${TOPTAL_PROJECT_APP_KEY} \
   -e VIRTUAL_HOST=toptal-project.localtest.me,toptal-project.szeremi.org,jogging.szeremi.org \
+  -e LETSENCRYPT_HOST=toptal-project.localtest.me,toptal-project.szeremi.org,jogging.szeremi.org \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   -e DB_DATABASE=/var/www/database/database.sqlite \
   -e LOG_CHANNEL=errorlog \
   ${CONTAINER_NAME}

@@ -16,6 +16,8 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --name %p \
   -p 10087:1337 \
   -e VIRTUAL_HOST=teamap.szeremi.org \
+  -e LETSENCRYPT_HOST=teamap.szeremi.org \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   -e GOOGLE_MAPS_API_KEY=${TEAMAP_GOOGLE_MAPS_API_KEY} \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p

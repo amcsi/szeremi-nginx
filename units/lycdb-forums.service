@@ -14,6 +14,8 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --name %p \
   -p 10090:80 \
   -e VIRTUAL_HOST=lycdb-forums.localtest.me,lycdb-forums.szeremi.org,forums.lycee-tcg.eu \
+  -e LETSENCRYPT_HOST=lycdb-forums.localtest.me,lycdb-forums.szeremi.org,forums.lycee-tcg.eu \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   -e MYSQL_HOST=mysql \
   -e MYSQL_PASS=${LYCDB_MYSQL_PASS} \
   --network szeremi \

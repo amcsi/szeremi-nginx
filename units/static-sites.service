@@ -14,6 +14,8 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --name %p \
   -p 10093:80 \
   -e VIRTUAL_HOST=static.szeremi.org,static.localtest.me \
+  -e LETSENCRYPT_HOST=static.szeremi.org,static.localtest.me \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   -v /var/www/static:/usr/share/nginx/html \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p

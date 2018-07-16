@@ -13,6 +13,8 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
 ExecStart=/usr/bin/docker run --name %p \
     -e VIRTUAL_HOST=blog.szeremi.org \
+    -e LETSENCRYPT_HOST=blog.szeremi.org \
+    -e LETSENCRYPT_EMAIL=attila@szeremi.org \
     -v /mnt/szeremi-blog/sites:/var/www/html/sites \
     -v /mnt/szeremi-blog/uploads:/var/www/uploads \
     --link mysql \
