@@ -11,12 +11,11 @@ const projects = {
   'toptal-project': 'jogging',             
 };                                         
                                            
-const exports = {};                        
+const exportsObject = {};                        
 
 for (let serviceName in projects) {
-	let dockerHubName = projects[serviceName];
-  let imageName = 'amcsi/' + dockerHubName;
-  exports[`${dockerHubName}:latest`] = `docker pull ${imageName} && docker stop ${serviceName}`;
+	let imageName = `amcsi/${projects[serviceName]}`;
+  exportsObject[`${imageName}:latest`] = `pull-and-stop.sh ${imageName} ${serviceName}`;
 }
 
-module.exports = exports;
+module.exports = exportsObject;
