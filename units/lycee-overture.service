@@ -14,6 +14,7 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/usr/bin/docker run --name %p \
   -p 10094:80 \
   -v ${LYCEE_OVERTURE_STORAGE_DIR}:/var/www/storage \
+  -v ${LYCEE_OVERTURE_NGINX_CONFIG_FILE}:/etc/nginx/sites-available/default \
   --env-file=${LYCEE_OVERTURE_ENV_FILE} \
   -e VIRTUAL_HOST=lycee-overture.szeremi.org,lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_HOST=lycee-overture.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
