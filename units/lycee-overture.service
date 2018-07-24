@@ -19,6 +19,7 @@ ExecStart=/usr/bin/docker run --name %p \
   -e VIRTUAL_HOST=lycee-overture.szeremi.org,lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_HOST=lycee-overture.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
+  -e GA_TRACKING_ID=${LYCEE_OVERTURE_GA_TRACKING_ID} \
   -e LOG_CHANNEL=errorlog \
   --network szeremi \
   ${CONTAINER_NAME}
