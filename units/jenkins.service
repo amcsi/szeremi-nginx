@@ -1,0 +1,28 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=jenkins/jenkins
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# Provide the virtual host for nginx-proxy
+ExecStart=/usr/bin/docker run --name %p \
+  -p 10095:8080 \
+  -p 50000:50000 \
+  -v /var/jenkins_home:/var/jenkins_home \
+  -e VIRTUAL_HOST=jejenkins.szeremi.org,jenkins.localtest.me \
+  -e VIRTUAL_PORT=8080 \
+  -e LETSENCRYPT_HOST=jejenkins.szeremi.org \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
+  --network szeremi \
+  ${CONTAINER_NAME}
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
+
