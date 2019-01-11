@@ -34,16 +34,16 @@ fi
 serviceFileWithoutExtension=$(echo "$serviceFile" | sed -E 's/\.service$//')
 unitFiles=$(find $serviceFileWithoutExtension.*)
 
+sudo systemctl daemon-reload
+# Currently this only works if the service name without extension was passed as an argument to this command.
+
 for unitFile in $unitFiles
 do
-    sudo systemctl daemon-reload
-    # Currently this only works if the service name without extension was passed as an argument to this command.
-    sudo systemctl stop $1
-    sudo systemctl disable $1
-
+    sudo systemctl stop $(basename $unitFile)
+    sudo systemctl disable $(basename $unitFile)
     sudo systemctl enable $(realpath "$unitFile")
-
-    # Try to start it too.
-    # Also only works if the service name without extension was passed as an argument to this command.
-    sudo systemctl start $1
 done
+
+# Try to start it too.
+# Also only works if the service name without extension was passed as an argument to this command.
+sudo systemctl start $1
