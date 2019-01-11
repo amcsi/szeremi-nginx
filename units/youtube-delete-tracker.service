@@ -21,7 +21,7 @@ ExecStart=/usr/bin/docker run --name %p \
   ${CONTAINER_NAME} \
   /bin/bash -c \
   "php artisan migrate --force && \
-  php artisan scan-channel UC1bSfMYJEqh7DTSOsbe_t8Q"
+  php artisan scan-channel --all"
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
