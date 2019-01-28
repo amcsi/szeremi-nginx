@@ -39,11 +39,11 @@ sudo systemctl daemon-reload
 
 for unitFile in $unitFiles
 do
-    sudo systemctl stop $(basename $unitFile)
-    sudo systemctl disable $(basename $unitFile)
+    unitBaseName=$(basename $unitFile)
+    sudo systemctl stop $unitBaseName
+    sudo systemctl disable $unitBaseName
     sudo systemctl enable $(realpath "$unitFile")
-done
 
-# Try to start it too.
-# Also only works if the service name without extension was passed as an argument to this command.
-sudo systemctl start $1
+    # Try to start it too.
+    sudo systemctl start $unitBaseName
+done
