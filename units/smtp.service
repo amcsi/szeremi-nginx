@@ -1,0 +1,20 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+Environment=CONTAINER_NAME=namshi/smtp
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+ExecStart=/usr/bin/docker run --name %p \
+  -p 127.0.0.1:25:25 \
+  --network szeremi \
+  ${CONTAINER_NAME}
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
+
+
