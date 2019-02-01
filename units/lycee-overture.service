@@ -11,17 +11,12 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/usr/bin/docker run --name %p \
+ExecStart=/var/szeremi-nginx/bin/lycee-overture.sh \
+  --name lycee-overture \
   -p 10094:80 \
-  -v ${LYCEE_OVERTURE_STORAGE_DIR}:/var/www/storage \
-  -v ${LYCEE_OVERTURE_NGINX_CONFIG_FILE}:/etc/nginx/sites-available/default \
-  --env-file=${LYCEE_OVERTURE_ENV_FILE} \
   -e VIRTUAL_HOST=lycee-overture.szeremi.org,lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_HOST=lycee-overture.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
-  -e GA_TRACKING_ID=${LYCEE_OVERTURE_GA_TRACKING_ID} \
-  -e LOG_CHANNEL=errorlog \
-  --network szeremi \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
 
