@@ -1,0 +1,10 @@
+# https://www.freedesktop.org/software/systemd/man/systemd.time.html
+[Unit]
+Description=Run %p every minute
+
+[Timer]
+OnCalendar=minutely
+
+[Install]
+WantedBy=multi-user.target
+

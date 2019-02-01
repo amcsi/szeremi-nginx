@@ -1,0 +1,13 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/var/szeremi-nginx/bin/lycee-overture.sh \
+  amcsi/lycee-overture \
+  php artisan schedule:run
+
+[Install]
+WantedBy=multi-user.target
