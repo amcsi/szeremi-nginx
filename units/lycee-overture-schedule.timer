@@ -3,7 +3,7 @@
 Description=Run %p every minute
 
 [Timer]
-OnCalendar=minutely
+OnCalendar=hourly
 
 [Install]
 WantedBy=multi-user.target
