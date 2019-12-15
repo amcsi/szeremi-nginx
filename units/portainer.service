@@ -18,6 +18,9 @@ ExecStart=/usr/bin/docker run --name %p \
    -p 9000:9000 \
    -v /var/run/docker.sock:/var/run/docker.sock \
    -v portainer_data:/data \
+   -e VIRTUAL_HOST=portainer.szeremi.org,portainer.localtest.me \
+   -e LETSENCRYPT_HOST=portainer.szeremi.org \
+   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
 
