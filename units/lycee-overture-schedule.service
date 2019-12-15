@@ -6,6 +6,7 @@ After=docker.service
 [Service]
 Type=oneshot
 ExecStart=/var/szeremi-nginx/bin/lycee-overture.sh \
+  -e APP_LOCAL_URL=/var/www/public \
   amcsi/lycee-overture \
   php artisan schedule:run
 
