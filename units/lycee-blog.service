@@ -1,0 +1,26 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+Wants=szeremi-nginx.service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=wordpress
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+# Provide the virtual host for nginx-proxy
+ExecStart=/usr/bin/docker run --name %p \
+  -p 10096:8080 \
+  -e VIRTUAL_HOST=blog.lycee-tcg.eu,blog.lycee-tcg.localtest.me \
+  -e LETSENCRYPT_HOST=blog.lycee-tcg.eu \
+  -e LETSENCRYPT_EMAIL=attila@szeremi.org \
+  -v ${SZEREMI_NGINX_PATH}/projects/%p/wp-content/:/var/www/html/wp-content/ \
+  --env-file=${SZEREMI_NGINX_PATH}/projects/%p/.env \
+  --network szeremi \
+  ${CONTAINER_NAME}:5.3-php7.4-apache
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
