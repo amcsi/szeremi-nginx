@@ -14,8 +14,8 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 ExecStart=/var/szeremi-nginx/bin/lycee-overture.sh \
   --name lycee-overture \
   -p 10094:80 \
-  -e VIRTUAL_HOST=lycee-overture.szeremi.org,lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
-  -e LETSENCRYPT_HOST=lycee-overture.szeremi.org,lycee-tcg.eu,www.lycee-tcg.eu \
+  -e VIRTUAL_HOST=lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
+  -e LETSENCRYPT_HOST=lycee-tcg.eu,www.lycee-tcg.eu \
   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
