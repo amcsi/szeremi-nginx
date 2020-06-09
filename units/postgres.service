@@ -1,0 +1,20 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+# The mysql password should be found in /etc/environment
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=postgres:13
+Restart=always
+# The network for being able to see this service.
+ExecStartPre=-/usr/bin/docker network create szeremi
+ExecStartPre=/usr/bin/docker-compose -f /var/szeremi-nginx/projects/%p/docker-compose.yml down -v
+ExecStartPre=/usr/bin/docker-compose -f /var/szeremi-nginx/projects/%p/docker-compose.yml rm -v
+
+ExecStart=/usr/bin/docker-compose -f /var/szeremi-nginx/projects/%p/docker-compose.yml up
+ExecStop=/usr/bin/docker-compose -f /var/szeremi-nginx/projects/%p/docker-compose.yml down -v
+
+[Install]
+WantedBy=multi-user.target
