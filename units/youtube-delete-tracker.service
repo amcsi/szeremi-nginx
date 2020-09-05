@@ -17,6 +17,7 @@ ExecStart=/usr/bin/docker run --name %p \
   -e DB_USERNAME=ydt \
   -e DB_PASSWORD=${YOUTUBE_DELETE_TRACKER_MYSQL_PASSWORD} \
   -e YOUTUBE_API_KEY=${YOUTUBE_DELETE_TRACKER_YOUTUBE_API_KEY} \
+  --env-file=${SZEREMI_NGINX_PATH}/projects/%p/.env \
   --network szeremi \
   ${CONTAINER_NAME} \
   /bin/bash -c \
