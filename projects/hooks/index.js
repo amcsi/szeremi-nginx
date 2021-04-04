@@ -9,6 +9,7 @@ const projects = {
   'szeremi': 'szeremi',                    
   'teamap': 'teamap',                      
   'toptal-project': 'jogging',             
+  'youtube-delete-tracker': 'youtube-delete-tracker',
 };                                         
                                            
 const exportsObject = {};                        

@@ -6,7 +6,7 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=youtube-delete-tracker
+Environment=CONTAINER_NAME=amcsi/youtube-delete-tracker
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
