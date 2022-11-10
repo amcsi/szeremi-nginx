@@ -16,7 +16,7 @@ ExecStart=/usr/bin/docker run --name %p \
   -p 8200:8200 \
   --name=apm-server \
   --user=apm-server \
-  --volume="/var/szeremi-nginx/projects/apm-server/apm-server.docker.yml:/usr/share/apm-server/apm-server.yml:ro" \
+  --volume="/opt/szeremi-nginx/projects/apm-server/apm-server.docker.yml:/usr/share/apm-server/apm-server.yml:ro" \
   ${CONTAINER_NAME} \
   --strict.perms=false -e \
   -E output.elasticsearch.hosts=["elasticsearch:9200"]

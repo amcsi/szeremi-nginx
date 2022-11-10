@@ -11,7 +11,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
-ExecStart=/var/szeremi-nginx/bin/lycee-overture.sh \
+ExecStart=/opt/szeremi-nginx/bin/lycee-overture.sh \
   --name lycee-overture \
   -p 10094:80 \
   -e VIRTUAL_HOST=lycee-overture.localtest.me,lycee-tcg.eu,www.lycee-tcg.eu \
