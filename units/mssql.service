@@ -6,7 +6,7 @@ After=docker.service
 [Service]
 # The mysql password should be found in /etc/environment
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=microsoft/mssql-server-linux
+Environment=CONTAINER_NAME=mcr.microsoft.com/mssql/server
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
