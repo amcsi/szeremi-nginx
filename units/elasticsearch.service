@@ -6,7 +6,7 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=elasticsearch:7.7.0
+Environment=CONTAINER_NAME=elasticsearch:7.17.7
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
@@ -16,6 +16,8 @@ ExecStart=/usr/bin/docker run --name %p \
   -p 9200:9200 \
   -p 9300:9300 \
   -e "discovery.type=single-node" \
+  -e "ES_JAVA_OPTS=-Xms1g -Xmx2g" \
+#  -e "xpack.security.enabled=true" \
   # Production; this requires SSL \
   # -e "xpack.security.enabled=true" \
   # -e "xpack.security.transport.ssl.enabled=true" \

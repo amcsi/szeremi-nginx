@@ -6,7 +6,7 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=kibana:7.7.0
+Environment=CONTAINER_NAME=kibana:7.17.7
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
