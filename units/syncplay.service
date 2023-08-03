@@ -1,0 +1,25 @@
+[Unit]
+Description=Run %p
+Requires=docker.service
+After=docker.service
+
+[Service]
+# The mysql password should be found in /etc/environment
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=amcsi/syncplay-server
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm -f %p
+
+ExecStart=/usr/bin/docker run --name %p \
+    -p 0.0.0.0:10098:8999 \
+    --net szeremi \
+    --hostname=attila.szeremi.org \
+    --volume /var/szeremi-nginx/projects/syncplay:/syncplay-mount \
+    -e PASSWORD=supersecret123 \
+    ${CONTAINER_NAME} --rooms-db-file=/syncplay-mount/rooms-db-file --permanent-rooms-file=/syncplay-mount/permanent-rooms-file.txt
+ExecStop=/usr/bin/docker stop %p
+
+[Install]
+WantedBy=multi-user.target
+
