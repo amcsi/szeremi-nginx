@@ -16,8 +16,21 @@ ExecStart=/usr/bin/docker run --name %p \
     --net szeremi \
     --hostname=attila.szeremi.org \
     --volume /var/szeremi-nginx/projects/syncplay:/syncplay-mount \
+    # The letsencrypt companion creates certificates automatically. \
+    # We want to make sure to symlink the folder rather than each file, \
+    # because if a volume does not exist, then Docker would create an empty dir. \
+    --volume /certs/syncplay.szeremi.org:/certs-mount \
     -e PASSWORD=supersecret123 \
-    ${CONTAINER_NAME} --rooms-db-file=/syncplay-mount/rooms-db-file --permanent-rooms-file=/syncplay-mount/permanent-rooms-file.txt
+    -e VIRTUAL_HOST=syncplay.szeremi.org \
+    -e LETSENCRYPT_HOST=syncplay.szeremi.org \
+    -e LETSENCRYPT_EMAIL=attila@szeremi.org \
+    ${CONTAINER_NAME} \
+    --rooms-db-file=/syncplay-mount/rooms-db-file \
+    --permanent-rooms-file=/syncplay-mount/permanent-rooms-file.txt \
+    # These symlinks point to where the certs will be in the container. \
+    # The certs may not exist yet on first pass, so the container may need to be \
+    # restarted one time to get TLS working. \
+    --tls /syncplay-mount/cert-symlinks
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
