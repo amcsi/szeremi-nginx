@@ -12,11 +12,12 @@ ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p
 
 ExecStart=/usr/bin/docker run --name %p \
+    --user mssql \
     -p 127.0.0.1:1433:1433 \
     -v ${MSSQL_DATA_PATH}:/var/opt/mssql \
     -e ACCEPT_EULA=Y \
     -e MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD} \
-    ${CONTAINER_NAME}:2017-latest
+    ${CONTAINER_NAME}:2019-latest
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
