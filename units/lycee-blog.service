@@ -19,7 +19,7 @@ ExecStart=/usr/bin/docker run --name %p \
   -v ${SZEREMI_NGINX_PATH}/projects/%p/wp-content/:/var/www/html/wp-content/ \
   --env-file=${SZEREMI_NGINX_PATH}/projects/%p/.env \
   --network szeremi \
-  ${CONTAINER_NAME}:5.3-php7.4-apache
+  ${CONTAINER_NAME}:6.0-php8.1-apache
 ExecStop=/usr/bin/docker stop %p
 
 [Install]
