@@ -14,7 +14,7 @@ ExecStartPre=-/usr/bin/docker network create szeremi
 ExecStart=/usr/bin/docker run --name %p \
     -p 127.0.0.1:9998:8080 \
     -e ADMINER_DEFAULT_SERVER=mysql \
-    --network szeremi \
+    --network host \
     ${CONTAINER_NAME}
 ExecStop=/usr/bin/docker stop %p
 
