@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker rm -f %p
 # Provide the virtual host for nginx-proxy
 ExecStart=/usr/bin/docker run --name %p \
   -p 10086:8080 \
-  -e VIRTUAL_HOST=skillbuilder.szeremi.org \
+  -e VIRTUAL_HOST=skillbuilder.szeremi.org,skillbuilder.localtest.me \
   -e LETSENCRYPT_HOST=skillbuilder.szeremi.org \
   -e LETSENCRYPT_EMAIL=attila@szeremi.org \
   ${CONTAINER_NAME}
