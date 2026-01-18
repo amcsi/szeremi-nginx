@@ -7,13 +7,16 @@ Wants=szeremi-nginx.service
 Requires=docker.service
 
 [Service]
-Environment=CONTAINER_NAME=jrcs/letsencrypt-nginx-proxy-companion
+EnvironmentFile=/etc/environment
+Environment=CONTAINER_NAME=nginxproxy/acme-companion
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
 ExecStartPre=/usr/bin/docker create --name %p \
     -v /certs:/etc/nginx/certs:rw \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     --volumes-from szeremi-nginx \
+    --volume acme:/etc/acme.sh \
+    --env-file=${SZEREMI_NGINX_PATH}/projects/%p/.env \
     ${CONTAINER_NAME}
 ExecStartPre=/usr/bin/docker network connect szeremi %p
 ExecStart=/usr/bin/docker start --attach %p
