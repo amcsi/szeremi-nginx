@@ -6,7 +6,7 @@ After=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=CONTAINER_NAME=docker.elastic.co/apm/apm-server:7.17.7
+Environment=CONTAINER_NAME=docker.elastic.co/apm/apm-server:8.11.1
 Restart=always
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm -f %p

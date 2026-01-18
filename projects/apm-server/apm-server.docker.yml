@@ -3,9 +3,8 @@ apm-server:
   rum:
     enabled: true
 
-output:
-  elasticsearch:
-    hosts: elasticsearch:9200
+output.elasticsearch:
+  api_key: "C44JJowBacaYvTYgh0r4:vGN6rElaTWKAqqCjndqcMw"
 
 queue.mem.events: 4096
 
